@@ -25,7 +25,7 @@
 </head>
 
 <body>
-<form id="sign-in" action="http://www.a.com:3000/register" method="post" target="_self" onSubmit="return onSignUpFormSubmit()">
+<form id="sign-in" action="#" method="post" target="_blank" onSubmit="return onSignUpFormSubmit()">
     <p id="sign-error" style="color: red"></p>
     <p>
         用户名：<input type="text" name="username" id="username">
@@ -42,6 +42,7 @@
     </p>
 </form>
 
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 <script>
     "use strict"
     var error=document.getElementById("sign-error");
@@ -64,7 +65,14 @@
             error.innerHTML="重复口令：必须和口令一致！";
             return false;
         }
-        return true;
+        $.ajax({
+            method:'post',
+            url:'http://www.a.com:3000/register',
+            success:function (data) {
+                console.log(data);
+            }
+        })
+        return false;
     }
 </script>
 </body>

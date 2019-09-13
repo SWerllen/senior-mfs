@@ -47,7 +47,7 @@
 
    PostMan
 
-   
+   ![1568368131371](mk.assets/1568368131371.png)
 
 5. #### 本地如何模拟跨域访问？
 
@@ -81,4 +81,4 @@
 
    需要在github上提交代码，然后把链接附在答案后面
 
-   
+   [注册界面代码地址](https://github.com/SWerllen/senior-mfs/blob/master/JS%E8%B7%A8%E5%9F%9F/register.html)
