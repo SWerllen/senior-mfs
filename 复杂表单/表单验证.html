@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <form action="/">
+        <div>
+            username:
+            <input type="text" oninput="checkUsername(this)" pattern="^[A-z]\w{5,14}$"/>
+        </div>
+        <button id="username" type="submit">提交</button>
+    </form>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js" type="text/javascript"></script>
+<script>
+    var password;
+    var passwordInput=document.getElementById("password");
+    var passReapeatInput=document.getElementById("pass-repeat");
+
+    function passwordChanged() {
+        password=passwordInput.value;
+
+    }
+
+    function passwordRepeatChanged(){
+        if(password == passReapeatInput.value){
+            passReapeatInput.setCustomValidity("");
+        }
+        else{
+            passReapeatInput.setCustomValidity("两次密码不一致！");
+        }
+    }
+    var checkTimer=null;
+    function checkUsername(ele){
+        clearTimeout(checkTimer);
+        if(ele.validity.patternMismatch) return;
+        checkTimer=setTimeout(function () {
+            console.log("to check!")
+            $.ajax({
+                method:"post",
+                url:"http://www.a.com:3000/usernameExist",
+                data:{username:ele.value},
+                success:function (data) {
+                    if(data.errno!="0"){
+                        ele.setCustomValidity("用户名已存在！");
+                    }
+                    else{
+                        ele.setCustomValidity("");
+                    }
+                }
+            })
+        },1000);
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三级联动</title>
+    <style>
+    </style>
+</head>
+<body>
+    <form>
+        <select id="province" oninput="getCity()">
+        </select>
+        <select id="city" oninput="getDistrict()">
+        </select>
+        <select id="district">
+        </select>
+    </form>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+    var pro=document.getElementById("province");
+    var city=document.getElementById("city");
+    var dis=document.getElementById("district");
+    var pindex;
+    $.ajax({
+        method:"get",
+        url:"http://www.a.com:3000/Province",
+        success:function (data) {
+            if(data.data){
+                pro.innerHTML="";
+                for(var i in data.data){
+                    var ele=document.createElement("option");
+                    ele.value=i;
+                    ele.innerHTML=data.data[i];
+                    pro.appendChild(ele);
+                }
+            }
+            else{
+                console.log("省份信息获取失败");
+            }
+        }
+    })
+    function getCity() {
+        console.log("获取市");
+        pindex=$("#province").find("option:selected").attr("value");
+        $.ajax({
+            method:"get",
+            url:"http://www.a.com:3000/City",
+            data:{pindex:pindex},
+            success:function (data) {
+                if(data.data){
+                    city.innerHTML="";
+                    for(var i in data.data){
+                        var ele=document.createElement("option");
+                        ele.value=i;
+                        ele.innerHTML=data.data[i];
+                        city.appendChild(ele);
+                    }
+                }
+            }
+        })
+    }
+    function getDistrict() {
+        console.log("获取区");
+        dindex=$("#city").find("option:selected").attr("value");
+        $.ajax({
+            method:"get",
+            url:"http://www.a.com:3000/District",
+            data:{pindex:pindex,dindex:dindex},
+            success:function (data) {
+                if(data.data){
+                    dis.innerHTML="";
+                    for(var i in data.data){
+                        var ele=document.createElement("option");
+                        ele.value=i;
+                        ele.innerHTML=data.data[i];
+                        dis.appendChild(ele);
+                    }
+                }
+            }
+        })
+    }
+
+</script>
+</body>
+</html>
