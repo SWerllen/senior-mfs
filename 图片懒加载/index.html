@@ -34,13 +34,15 @@
         if(ydis1>$ele.offset().top&&ydis2>window.scrollY&&xdis1>$ele.offset().left&&xdis2>window.scrollX) return true;
         return false;
     }
+    var timer=null;
     function LazyImg($ele){
         var eles=new Array($ele.length);
         for(var i=0;i<$ele.length;++i){
             eles[i]=$($ele[i]);
         }
         window.addEventListener("scroll",function () {
-            setTimeout(function () {
+            clearTimeout(timer);
+            timer=setTimeout(function () {
                 for(var i=0;i<eles.length;++i){
                     if(isShow(eles[i])){
                         eles[i].attr("src",eles[i].data("src"));
