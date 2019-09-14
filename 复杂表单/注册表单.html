@@ -10,7 +10,7 @@
 	}
 	#sign-in{
 		margin: 0 auto;
-		width: 270px;
+		width: 300px;
 	}
 	#sign-in p{
 		display: flex;
@@ -25,7 +25,7 @@
 </head>
 
 <body>
-<form id="sign-in" action="#" target="_blank" onSubmit="onSignUpFormSubmit()">
+<form id="sign-in" action="#" target="_blank" onSubmit="return onSignUpFormSubmit()">
 	<p id="sign-error" style="color: red"></p>
 	<p>
 		用户名：<input type="text" name="username" id="username">
