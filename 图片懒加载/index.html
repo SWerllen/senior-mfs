@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片懒加载</title>
+    <style>
+        img{
+            background: #00B7FF;
+            position: absolute;
+        }
+        #img1{
+            top: 1000px;
+        }
+        #img2{
+            top: 2000px;
+        }
+        #img3{
+            top:3000px;
+        }
+    </style>
+</head>
+<body>
+<img id="img1" width="300px" height="400px" data-src="https://cdn1-digiphoto.techbang.com/system/excerpt_images/9862/inpage/3487c5f3a19271d9fab1238faf518293.jpg?1548392543" alt="">
+<img id="img2" width="300px" height="300px" data-src="http://pic1.win4000.com/wallpaper/0/57ba5b70305e0.jpg" alt="">
+<img id="img3" width="300px" height="500px" data-src="http://pic1.win4000.com/mobile/2019-09-02/5d6ca989da8c5.jpg" alt="">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    function isShow($ele){
+        $ele=$($ele);
+        var ydis1=window.innerHeight+window.scrollY;
+        var ydis2=$ele.offset().top+$ele.outerHeight();
+        var xdis1=window.innerWidth+window.scrollX;
+        var xdis2=$ele.offset().left+$ele.outerWidth();
+        if(ydis1>$ele.offset().top&&ydis2>window.scrollY&&xdis1>$ele.offset().left&&xdis2>window.scrollX) return true;
+        return false;
+    }
+    function LazyImg($ele){
+        var eles=new Array($ele.length);
+        for(var i=0;i<$ele.length;++i){
+            eles[i]=$($ele[i]);
+        }
+        window.addEventListener("scroll",function () {
+            setTimeout(function () {
+                for(var i=0;i<eles.length;++i){
+                    if(isShow(eles[i])){
+                        eles[i].attr("src",eles[i].data("src"));
+                        eles.splice(i,1);
+                    }
+                }
+            },100);
+        })
+    }
+    new LazyImg($('img'));
+</script>
+</body>
+</html>
