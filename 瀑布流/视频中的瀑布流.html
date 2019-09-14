@@ -13,10 +13,16 @@
             position: relative;
         }
         .item{
-            transition: top 0.5s,left 0.5s;
+            transition: top 0.5s,left 0.5s,transform 0.5s;
             position: absolute;
             width: 200px;
             margin: 10px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px rgba(66, 75, 66, 0.74);
+        }
+        .item:hover{
+            transform: scale(1.1,1.1);
         }
         .jiazai{
             margin: 10px auto;
@@ -25,6 +31,18 @@
             text-align: center;
             position: absolute;
             bottom: 0;
+        }
+        a{
+             display: block;
+             font: bold 22px/2em "Adobe Devanagari";
+             text-decoration: none;
+             color: #000000;
+             text-align: center;
+             margin: 0 0 5px 0
+         ;
+         }
+        a:hover{
+            font: 900 24px/44px "Adobe Devanagari";
         }
     </style>
 </head>
@@ -70,8 +88,8 @@
             var ele=document.createElement("div");
             ele.className="item";
             var imgHtml="<img src='"+img+"' width='200px'>";
-            //var titleHtml="<a href='"+link+"'>"+title+"</a>";
-            ele.innerHTML=imgHtml
+            var titleHtml="<a href='"+link+"'>"+title+"</a>";
+            ele.innerHTML=imgHtml+titleHtml;
             return ele;
         }
     }
