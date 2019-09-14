@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瀑布流</title>
+    <style>
+        a{
+            display: block;
+            font: bold 22px/2em "Adobe Devanagari";
+            text-decoration: none;
+            color: #000000;
+            text-align: center;
+            margin: 0 0 5px 0
+        ;
+        }
+        a:hover{
+            font: 900 24px/44px "Adobe Devanagari";
+        }
+        *{
+            box-sizing: border-box;
+        }
+        #main{
+            display: flex;
+            justify-content: space-around;
+            margin: 0 auto;
+            max-width: 800px;
+            align-content: flex-start;
+            align-items: flex-start;
+        }
+        .col{
+            max-width: 400px;
+            width: 100%;
+            margin: 10px;
+        }
+        .card{
+            width: 98%;
+            border: 20px #0f0f0f;
+            border-radius: 20px;
+            background: rgba(248,255,241,0.42);
+            overflow: hidden;
+        }
+        .card:hover{
+            transform: scale(1.1,1.1);
+        }
+    </style>
+</head>
+<body>
+<section id="main">
+</section>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.slim.js" type="text/javascript"></script>
+<script>
+    function Col(){
+        this.element=null;
+        this.items=[];
+        this.element=document.createElement("div");
+        this.element.className="col";
+        document.querySelector("#main").appendChild(this.element);
+        this.addNewItem=function (ele) {
+            this.items.push(ele);
+            this.element.appendChild(ele);
+        }
+    }
+    var cols=[new Col(),new Col(),new Col()];
+    card={
+        img:"http://pic1.win4000.com/wallpaper/0/57ba5b70305e0.jpg",
+        title:"The best place to live",
+        link:"#"
+    }
+    function Card(img,title,link){
+        this.img=img;
+        this.title=title;
+        this.link=link;
+        this.getElement=function () {
+            var ele=document.createElement("div");
+            ele.className="card";
+            var imgHtml="<img src='"+img+"' width='100%'>";
+            var titleHtml="<a href='"+link+"'>"+title+"</a>";
+            ele.innerHTML=imgHtml+titleHtml;
+            return ele;
+        }
+    }
+    var cards=[
+        new Card("http://pic1.win4000.com/wallpaper/0/57ba5b70305e0.jpg","The best place to live","#"),
+        new Card("http://pic1.win4000.com/mobile/2019-09-12/5d79e5dfe932d.jpg","The cutest pet!","#"),
+        new Card("http://pic1.win4000.com/mobile/2019-09-02/5d6ca989da8c5.jpg","The beautiful picture!","#"),
+        new Card("http://pic1.win4000.com/mobile/2019-09-11/5d7860a76ca9f.jpg","The Star!","#"),
+        new Card("http://pic1.win4000.com/pic/4/a7/2f135976d8.jpg","Anime, good anime!","#"),
+    ]
+
+    function add() {
+        var distance = window.scrollY + window.innerHeight;
+        if (distance > document.body.scrollHeight) {
+            //获得n条数据
+            console.log("add one ");
+            for (var i in cards) {
+                var minCol = cols[0];
+                for (var c = 1; c < cols.length; ++c) {
+                    if ($(cols[c].element).outerHeight() < $(minCol.element).outerHeight())
+                        minCol = cols[c];
+                }
+                minCol.addNewItem(cards[i].getElement());
+            }
+
+        }
+    }
+
+    window.addEventListener("scroll",add);
+    for(var i=0;i<4;++i)
+        add();
+
+</script>
+</body>
+</html>
